@@ -6,14 +6,14 @@
 
 ####---- FUNCTION COMMENTS ----####
 
-## makeCacheMatrix() takes a matrix as argument, tracks whether that matrix has been inverted, and returns a list of functions applied to that matrix.
+## makeCacheMatrix() takes a matrix as argument, tracks whether that matrix has been inverted, and returns a list of FUNs applied to that matrix.
 ## Note: the matrix must be invertible
 
 ####---- Function 1/2: makeCacheMatrix()----####
 
 makeCacheMatrix <- function(a_matrix = matrix()) {
-    inverse_exists <- NULL                        		###inverse_exists is a flag; the default value is NULL (i.e. no inverse calculated)
-	setmatrix <- function(another_matrix){              ###pseudocode: object_name$setmatrix(new_matrix) lets you change the matrix to be inverted
+    inverse_exists <- NULL                        		###inverse_exists is a flag; default value is NULL (i.e. no inverse calculated)
+	setmatrix <- function(another_matrix){              ###pseudocode: object_name$setmatrix(new_matrix) lets you change the matrix used by the FUN
 	a_matrix <<- another_matrix                         ###replaces previous matrix with new matrix 
 	inverse_exists <<- NULL                             ###resets flag to NULL (previous matrix may have had inverse calculated; new matrix won't have)
 	}
@@ -22,7 +22,7 @@ makeCacheMatrix <- function(a_matrix = matrix()) {
 	                                                    ###(good because the function itself returns a list) 
 	setinverse <- function(value) inverse_exists <<- value ### changes the inverse_exists flag if an inverse has been calculated
 	getinverse <- function() inverse_exists             ### gets the value of the inverse_exists flag
-	list (setmatrix = setmatrix, getmatrix = getmatrix, ### the makeCacheMatrix() function returns a list of functions for cacheSolve() to access & modify
+	list (setmatrix = setmatrix, getmatrix = getmatrix, ### the makeCacheMatrix() FUN returns a list of FUNs for cacheSolve() to access & modify
 	setinverse = setinverse, getinverse = getinverse)
 }
 
@@ -46,6 +46,6 @@ cacheSolve <- function(a_matrix, ...) {
         input_matrix <- a_matrix$getmatrix()       ### choose a matrix to invert
         inverse_exists <- solve(input_matrix, ...) ### feed this matrix into the invert function
         a_matrix$setinverse(inverse_exists)        ### change the state of inverse_exists (because an inverse has now been calculated); cache the inverse
-        inverse_exists                          ### return the value of m
+        inverse_exists                          ### return the value of inverse_exists flag
 }
 ###---- END OF FUNCTIONS AND COMMENTS ----####
